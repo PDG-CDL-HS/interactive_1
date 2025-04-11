@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dihybrid Punnett Square</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9fafb;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.8rem;
+    }
+
+    p {
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 8px;
+      text-align: center;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #e0f2fe;
+    }
+
+    select {
+      width: 100%;
+      margin-top: 5px;
+      padding: 6px;
+      font-size: 0.9rem;
+    }
+
+    .phenotype-img {
+      margin-top: 8px;
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 1px solid #94a3b8;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .legend {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #eef2ff;
+      border-radius: 8px;
+    }
+
+    .legend ul {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌱 Dihybrid Punnett Square</h1>
+  <p>Select the <strong>genotype</strong> and match it to the correct <strong>phenotype image</strong> for each cell.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Gametes</th>
+        <th>YR</th>
+        <th>Yr</th>
+        <th>yR</th>
+        <th>yr</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Repeat this block for each row: YR, Yr, yR, yr -->
+      <!-- Row: YR -->
+      <tr>
+        <th>YR</th>
+        <!-- Four columns -->
+        <td>${cellContent()}</td>
+        <td>${cellContent()}</td>
+        <td>${cellContent()}</td>
+        <td>${cellContent()}</td>
+      </tr>
+
+      <!-- Row: Yr -->
+      <tr>
+        <th>Yr</th>
+        <td>${cellContent()}</td>
+        <td>${cellContent()}</td>
+        <td>${cellContent()}</td>
+        <td>${cellContent()}</td>
+      </tr>
+
+      <!-- Row: yR -->
+      <tr>
+        <th>yR</th>
+        <td>${cellContent()}</td>
+        <td>${cellContent()}</td>
+        <td>${cellContent()}</td>
+        <td>${cellContent()}</td>
+      </tr>
+
+      <!-- Row: yr -->
+      <tr>
+        <th>yr</th>
+        <td>${cellContent()}</td>
+        <td>${cellContent()}</td>
+        <td>${cellContent()}</td>
+        <td>${cellContent()}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="legend">
+    <h3>Legend</h3>
+    <ul>
+      <li><strong>Y</strong> = Yellow allele, <strong>y</strong> = Green allele</li>
+      <li><strong>R</strong> = Round allele, <strong>r</strong> = Wrinkled allele</li>
+      <li><strong>Phenotype Images:</strong></li>
+      <ul>
+        <li><code>yellow-round.png</code></li>
+        <li><code>yellow-wrinkled.png</code></li>
+        <li><code>green-round.png</code></li>
+        <li><code>green-wrinkled.png</code></li>
+      </ul>
+    </ul>
+  </div>
+
+  <script>
+    // Fill each cell with a consistent HTML structure
+    function cellContent() {
+      return `
+        <label>Genotype:</label>
+        <select>
+          <option>--</option>
+          <option>YYRR</option>
+          <option>YyRR</option>
+          <option>YYRr</option>
+          <option>YyRr</option>
+          <option>YYrr</option>
+          <option>Yyrr</option>
+          <option>yyRR</option>
+          <option>yyRr</option>
+          <option>yyrr</option>
+        </select>
+
+        <label>Phenotype:</label>
+        <select onchange="updateImage(this)">
+          <option value="">Select...</option>
+          <option value="yellow-round.png">Yellow Round</option>
+          <option value="yellow-wrinkled.png">Yellow Wrinkled</option>
+          <option value="green-round.png">Green Round</option>
+          <option value="green-wrinkled.png">Green Wrinkled</option>
+        </select>
+
+        <img class="phenotype-img" alt="" />
+      `;
+    }
+
+    // On page load, fill all table cells with content
+    window.onload = function () {
+      const cells = document.querySelectorAll("td");
+      cells.forEach(cell => {
+        cell.innerHTML = cellContent();
+      });
+    };
+
+    // Update phenotype image on selection
+    function updateImage(selectElement) {
+      const img = selectElement.parentElement.querySelector("img");
+      img.src = selectElement.value;
+      img.alt = selectElement.options[selectElement.selectedIndex].text;
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
